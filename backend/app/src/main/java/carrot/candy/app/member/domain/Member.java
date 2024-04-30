@@ -28,25 +28,45 @@ public class Member {
     @Column(nullable = false)
     private Image image;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false, length = 255)
+    private String password;
+
     private Member(
             String name,
             String description,
-            String imageUrl
+            String imageUrl,
+            String email,
+            String password
     ) {
         this.name = name;
         this.description = description;
         this.image = Image.createImage(imageUrl);
+        this.email = email;
+        this.password = password;
     }
 
     public static Member createMember(
             String name,
             String description,
-            String imageUrl
+            String imageUrl,
+            String email,
+            String password
     ) {
         return new Member(
                 name,
                 description,
-                imageUrl
+                imageUrl,
+                email,
+                password
         );
+    }
+
+    public void login(String password) {
+        if (!this.password.equals(password)) {
+            throw new IllegalArgumentException("Failed to login");
+        }
     }
 }
