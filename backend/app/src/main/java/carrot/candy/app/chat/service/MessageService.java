@@ -20,7 +20,7 @@ public class MessageService {
     @Transactional
     public void save(MessageSendRequest request) {
         ChatRoom chatRoom = findChatRoomWithOwnerAndVisitor(request.roomId());
-        chatRoom.checkMemberIn(request.roomId());
+        chatRoom.checkMemberIn(request.senderId());
         Member sender = chatRoom.findSender(request.senderId());
         messageRepository.save(Message.createMessage(request.content(), sender, chatRoom));
     }
