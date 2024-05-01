@@ -1,5 +1,6 @@
-package carrot.candy.app.chat.domain;
+package carrot.candy.app.chat.domain.chatroom;
 
+import carrot.candy.app.chat.domain.message.Message;
 import carrot.candy.app.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,5 +60,18 @@ public class ChatRoom {
         this.name = name;
         this.visitor = visitor;
         this.owner = owner;
+    }
+
+    public void checkMemberIn(Long memberId) {
+        if (!(memberId == owner.getId() || memberId == visitor.getId())) {
+            throw new IllegalArgumentException("sender is not in chatRoom");
+        }
+    }
+
+    public Member findSender(Long senderId) {
+        if (visitor.getId() == senderId) {
+            return visitor;
+        }
+        return owner;
     }
 }
