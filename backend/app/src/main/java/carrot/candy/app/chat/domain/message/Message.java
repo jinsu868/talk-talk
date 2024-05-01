@@ -1,5 +1,6 @@
-package carrot.candy.app.chat.domain;
+package carrot.candy.app.chat.domain.message;
 
+import carrot.candy.app.chat.domain.chatroom.ChatRoom;
 import carrot.candy.app.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,4 +33,26 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
+
+    public static Message createMessage(
+            String content,
+            Member member,
+            ChatRoom chatRoom
+    ) {
+        return new Message(
+                content,
+                member,
+                chatRoom
+        );
+    }
+
+    private Message(
+            String content,
+            Member member,
+            ChatRoom chatRoom
+    ) {
+        this.content = content;
+        this.member = member;
+        this.chatRoom = chatRoom;
+    }
 }
