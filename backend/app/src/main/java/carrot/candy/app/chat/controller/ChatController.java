@@ -1,7 +1,7 @@
 package carrot.candy.app.chat.controller;
 
 import carrot.candy.app.auth.domain.AuthMember;
-import carrot.candy.app.chat.dto.MessageSendRequest;
+import carrot.candy.app.chat.dto.request.MessageSendRequest;
 import carrot.candy.app.chat.dto.response.MessageResponse;
 import carrot.candy.app.chat.service.MessageQueryService;
 import carrot.candy.app.chat.service.MessageService;
