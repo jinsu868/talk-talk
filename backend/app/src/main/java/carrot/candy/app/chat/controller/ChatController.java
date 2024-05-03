@@ -4,7 +4,7 @@ import carrot.candy.app.auth.domain.AuthMember;
 import carrot.candy.app.chat.dto.request.MessageSendRequest;
 import carrot.candy.app.chat.dto.response.MessageResponse;
 import carrot.candy.app.chat.service.MessageQueryService;
-import carrot.candy.app.chat.service.MessageService;
+import carrot.candy.app.chat.service.MessageCommandService;
 import carrot.candy.app.common.annotation.PreAuthorize;
 import carrot.candy.app.common.dto.SliceResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ChatController {
 
-    private final MessageService messageService;
-
+    private final MessageCommandService messageCommandService;
     private final MessageQueryService messageQueryService;
     private final SimpMessageSendingOperations sendingOperations;
 
@@ -32,7 +31,7 @@ public class ChatController {
     public void sendMessage(@Payload MessageSendRequest request) {
         log.info("chat message");
         sendingOperations.convertAndSend("/queue/chat-rooms/" + request.roomId(), request);
-        messageService.save(request);
+        messageCommandService.save(request);
     }
 
     @PreAuthorize
