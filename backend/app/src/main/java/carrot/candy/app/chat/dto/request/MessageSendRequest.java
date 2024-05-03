@@ -1,4 +1,4 @@
-package carrot.candy.app.chat.dto;
+package carrot.candy.app.chat.dto.request;
 
 public record MessageSendRequest(
         Long roomId,

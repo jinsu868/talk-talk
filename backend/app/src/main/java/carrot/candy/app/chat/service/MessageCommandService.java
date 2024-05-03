@@ -4,7 +4,7 @@ import carrot.candy.app.chat.domain.chatroom.ChatRoom;
 import carrot.candy.app.chat.domain.chatroom.ChatRoomRepository;
 import carrot.candy.app.chat.domain.message.Message;
 import carrot.candy.app.chat.domain.message.MessageRepository;
-import carrot.candy.app.chat.dto.MessageSendRequest;
+import carrot.candy.app.chat.dto.request.MessageSendRequest;
 import carrot.candy.app.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class MessageService {
+public class MessageCommandService {
 
     private final MessageRepository messageRepository;
     private final ChatRoomRepository chatRoomRepository;
