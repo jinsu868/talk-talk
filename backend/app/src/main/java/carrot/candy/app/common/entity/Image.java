@@ -1,5 +1,8 @@
 package carrot.candy.app.common.entity;
 
+import static carrot.candy.app.common.error.code.ImageErrorCode.IMAGE_BAD_REQUEST;
+
+import carrot.candy.app.common.error.exception.BusinessException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -27,7 +30,7 @@ public class Image {
 
     private static void validateUrl(String imageUrl) {
         if (!imageUrl.startsWith(URL_PREFIX)) {
-            throw new IllegalArgumentException("invalid URL");
+            throw new BusinessException(IMAGE_BAD_REQUEST);
         }
     }
 }
