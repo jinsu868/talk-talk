@@ -1,6 +1,9 @@
 package carrot.candy.app.member.domain;
 
+import static carrot.candy.app.member.exception.MemberErrorCode.MEMBER_NOT_FOUND;
+
 import carrot.candy.app.common.entity.Image;
+import carrot.candy.app.common.error.exception.BusinessException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -66,7 +69,7 @@ public class Member {
 
     public void login(String password) {
         if (!this.password.equals(password)) {
-            throw new IllegalArgumentException("Failed to login");
+            throw new BusinessException(MEMBER_NOT_FOUND);
         }
     }
 }
