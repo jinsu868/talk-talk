@@ -2,6 +2,7 @@ package carrot.candy.app.member.domain;
 
 import static carrot.candy.app.member.exception.MemberErrorCode.MEMBER_NOT_FOUND;
 
+import carrot.candy.app.common.entity.BaseTimeEntity;
 import carrot.candy.app.common.entity.Image;
 import carrot.candy.app.common.error.exception.BusinessException;
 import jakarta.persistence.Column;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

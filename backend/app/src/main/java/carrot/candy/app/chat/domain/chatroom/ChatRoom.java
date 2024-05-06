@@ -1,6 +1,7 @@
 package carrot.candy.app.chat.domain.chatroom;
 
 import carrot.candy.app.chat.domain.message.Message;
+import carrot.candy.app.common.entity.BaseTimeEntity;
 import carrot.candy.app.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChatRoom {
+public class ChatRoom extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
