@@ -30,8 +30,8 @@ public class ChatController {
     @MessageMapping("/message")
     public void sendMessage(@Payload MessageSendRequest request) {
         log.info("chat message");
-        sendingOperations.convertAndSend("/queue/chat-rooms/" + request.roomId(), request);
         messageCommandService.save(request);
+        sendingOperations.convertAndSend("/queue/chat-rooms/" + request.roomId(), request);
     }
 
     @PreAuthorize
