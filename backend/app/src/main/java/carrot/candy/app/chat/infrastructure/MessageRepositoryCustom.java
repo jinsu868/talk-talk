@@ -7,4 +7,6 @@ import carrot.candy.app.common.dto.SliceResponse;
 public interface MessageRepositoryCustom {
     SliceResponse<MessageResponse> findAllByChatRoomOrderByIdDesc(int pageSize, String cursor, ChatRoom chatRoom);
 
+    String findMessageContentByChatRoom(ChatRoom chatRoom);
+
 }
