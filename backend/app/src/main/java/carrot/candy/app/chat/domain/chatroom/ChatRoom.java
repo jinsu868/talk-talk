@@ -2,15 +2,11 @@ package carrot.candy.app.chat.domain.chatroom;
 
 import carrot.candy.app.chat.domain.message.Message;
 import carrot.candy.app.common.entity.BaseTimeEntity;
-import carrot.candy.app.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,49 +26,33 @@ public class ChatRoom extends BaseTimeEntity {
     @Column(nullable = false, length = 25)
     private String name;
 
+    @Column(nullable = false)
+    private Long managerId;
+
     @OneToMany(mappedBy = "chatRoom")
     private List<Message> messages = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "visitor_id")
-    private Member visitor;
+    @OneToMany(mappedBy = "chatRoom")
+    private List<ChatRoomMember> chatRoomMembers = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-    private Member owner;
+    @Column(nullable = false)
+    private boolean isActive;
 
-    public static ChatRoom createChatRoom(
-            String name,
-            Member visitor,
-            Member owner
-    ) {
-        return new ChatRoom(
-                name,
-                visitor,
-                owner
-        );
+    public static ChatRoom createChatRoom(String name, Long managerId) {
+        return new ChatRoom(name, managerId);
     }
 
-    private ChatRoom(
-            String name,
-            Member visitor,
-            Member owner
-    ) {
+    private ChatRoom(String name, Long managerId) {
         this.name = name;
-        this.visitor = visitor;
-        this.owner = owner;
+        this.managerId = managerId;
+        this.isActive = false;
     }
 
-    public void checkMemberIn(Long memberId) {
-        if (!(memberId == owner.getId() || memberId == visitor.getId())) {
-            throw new IllegalArgumentException("sender is not in chatRoom");
-        }
+    public boolean isActive() {
+        return isActive;
     }
 
-    public Member findSender(Long senderId) {
-        if (visitor.getId() == senderId) {
-            return visitor;
-        }
-        return owner;
+    public void activate() {
+        isActive = true;
     }
 }
