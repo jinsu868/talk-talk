@@ -10,7 +10,7 @@ Frontend : React
 - backend
 - [X] 0단계 : Interceptor, ArgumentResolver -> 로그인, 인증/인가 처리 구현 <br>
 - [X] 1단계 : STOMP 프로토콜을 사용하여 채팅 기능 구현 <br>
-- [ ] 2단계 : N:N 채팅을 구현 <br>
+- [X] 2단계 : 1:N 채팅을 구현 <br>
 - [ ] 3단계 : 캐시를 활용하여 채팅 성능 향상 <br>
 - [ ] 4단계 : 다중 WAS 환경에서 채팅이 동작하도록 서버를 구축 <br><br>
 
