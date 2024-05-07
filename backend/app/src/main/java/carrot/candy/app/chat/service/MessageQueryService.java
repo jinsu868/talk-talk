@@ -1,11 +1,14 @@
 package carrot.candy.app.chat.service;
 
+import static carrot.candy.app.chat.exception.ChatRoomErrorCode.MEMBER_NOT_IN_CHAR_ROOM;
+
 import carrot.candy.app.auth.domain.AuthMember;
 import carrot.candy.app.chat.domain.chatroom.ChatRoom;
 import carrot.candy.app.chat.domain.chatroom.ChatRoomRepository;
 import carrot.candy.app.chat.domain.message.MessageRepository;
 import carrot.candy.app.chat.dto.response.MessageResponse;
 import carrot.candy.app.common.dto.SliceResponse;
+import carrot.candy.app.common.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +26,18 @@ public class MessageQueryService {
             String cursor
     ) {
         ChatRoom chatRoom = findChatRoom(id);
-        chatRoom.checkMemberIn(authMember.getId());
+        validateMemberInChatRoom(authMember.getId());
         return messageRepository.findAllByChatRoomOrderByIdDesc(pageSize, cursor, chatRoom);
     }
 
     private ChatRoom findChatRoom(Long id) {
         return chatRoomRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("chatRoom not found"));
+    }
+
+    private void validateMemberInChatRoom(Long id) {
+        if (!chatRoomRepository.existsByMemberId(id)) {
+            throw new BusinessException(MEMBER_NOT_IN_CHAR_ROOM);
+        }
     }
 }
