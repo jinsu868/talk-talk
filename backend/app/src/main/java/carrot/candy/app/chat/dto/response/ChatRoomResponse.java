@@ -1,18 +1,26 @@
 package carrot.candy.app.chat.dto.response;
 
-import carrot.candy.app.member.domain.Member;
+import java.util.List;
 
 public record ChatRoomResponse(
         Long id,
-        String partnerName,
-        String partnerImage
+        String name,
+        String recentChatMessage,
+        List<String> partnerImages
 ) {
 
-    public static ChatRoomResponse of(Long id, Member partner) {
+    public static ChatRoomResponse of(
+            Long id,
+            String name,
+            String recentChatMessage,
+            List<String> partnerImages
+    ) {
+
         return new ChatRoomResponse(
                 id,
-                partner.getName(),
-                partner.getImage().getImageUrl()
+                name,
+                recentChatMessage,
+                partnerImages
         );
     }
 }

@@ -38,6 +38,16 @@ public class MessageRepositoryImpl implements MessageRepositoryCustom {
         return convertToSlice(result, pageSize);
     }
 
+    @Override
+    public String findMessageContentByChatRoom(ChatRoom chatRoom) {
+        return jpaQueryFactory.select(message.content)
+                .from(message)
+                .where(message.chatRoom.eq(chatRoom))
+                .orderBy(message.id.desc())
+                .limit(1)
+                .fetchOne();
+    }
+
     private BooleanExpression ChatRoomEq(ChatRoom chatRoom) {
         return message.chatRoom.eq(chatRoom);
     }
