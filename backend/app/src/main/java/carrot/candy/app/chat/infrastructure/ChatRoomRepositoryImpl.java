@@ -28,11 +28,11 @@ public class ChatRoomRepositoryImpl implements ChatRoomRepositoryCustom {
     }
 
     @Override
-    public boolean existsByMemberId(Long id) {
+    public boolean existsByMemberIdAndChatRoomId(Long memberId, Long chatRoomId) {
         ChatRoom result = jpaQueryFactory.selectFrom(chatRoom)
                 .join(chatRoom.chatRoomMembers, chatRoomMember)
                 .join(chatRoomMember.member, member)
-                .where(chatRoom.managerId.eq(id).or(member.id.eq(id)))
+                .where(chatRoom.id.eq(chatRoomId), chatRoom.managerId.eq(memberId).or(member.id.eq(memberId)))
                 .fetchFirst();
 
         return result != null;

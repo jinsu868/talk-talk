@@ -27,14 +27,14 @@ public class MessageCommandService {
     @Transactional
     public void save(MessageSendRequest request) {
         ChatRoom chatRoom = findChatRoom(request.roomId());
-        validateMemberInChatRoom(request.senderId());
+        validateMemberInChatRoom(request.senderId(), request.roomId());
         Member sender = findMember(request.senderId());
         chatRoom.activate();
         messageRepository.save(Message.createMessage(request.content(), sender, chatRoom));
     }
 
-    private void validateMemberInChatRoom(Long id) {
-        if (!chatRoomRepository.existsByMemberId(id)) {
+    private void validateMemberInChatRoom(Long id, Long chatRoomId) {
+        if (!chatRoomRepository.existsByMemberIdAndChatRoomId(id, chatRoomId)) {
             throw new BusinessException(MEMBER_NOT_IN_CHAR_ROOM);
         }
     }

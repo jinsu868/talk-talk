@@ -2,6 +2,7 @@ package carrot.candy.app.chat.controller;
 
 import carrot.candy.app.auth.domain.AuthMember;
 import carrot.candy.app.chat.dto.request.ChatRoomCreateRequest;
+import carrot.candy.app.chat.dto.request.ChatRoomInviteRequest;
 import carrot.candy.app.chat.dto.response.ChatRoomResponse;
 import carrot.candy.app.chat.service.ChatRoomCommandService;
 import carrot.candy.app.chat.service.ChatRoomQueryService;
@@ -11,6 +12,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,17 @@ public class ChatRoomController {
         Long id = chatRoomCommandService.createChatRoom(authMember, request);
         return ResponseEntity.created(URI.create("/api/v1/chat-rooms/" + id))
                 .build();
+    }
+
+    @PostMapping("/{id}/invite")
+    @PreAuthorize
+    public ResponseEntity<Void> invite(
+            @PathVariable Long id,
+            @RequestBody ChatRoomInviteRequest request,
+            AuthMember authMember
+    ) {
+        chatRoomCommandService.invite(authMember, id, request);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping

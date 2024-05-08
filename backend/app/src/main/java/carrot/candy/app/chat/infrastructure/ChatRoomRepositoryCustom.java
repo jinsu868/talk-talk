@@ -6,5 +6,5 @@ import java.util.List;
 public interface ChatRoomRepositoryCustom {
     List<ChatRoom> findChatRoomWithPartners(Long id);
 
-    boolean existsByMemberId(Long id);
+    boolean existsByMemberIdAndChatRoomId(Long memberId, Long chatRoomId);
 }
