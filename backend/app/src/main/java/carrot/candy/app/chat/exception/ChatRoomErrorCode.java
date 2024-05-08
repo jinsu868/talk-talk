@@ -11,7 +11,8 @@ import org.springframework.http.HttpStatus;
 public enum ChatRoomErrorCode implements ErrorCode {
 
     CHAT_ROOM_NOT_FOUND("1001", HttpStatus.OK, "ChatRoom not found"),
-    MEMBER_NOT_IN_CHAR_ROOM("1002", HttpStatus.BAD_REQUEST, "Member is not in Chat Room");
+    MEMBER_NOT_IN_CHAR_ROOM("1002", HttpStatus.BAD_REQUEST, "Member is not in Chat Room"),
+    ALREADY_PARTICIPATE_CHAT_ROOM("1003", HttpStatus.BAD_REQUEST, "member is already participating in the chat.");
 
     private String code;
     private HttpStatus status;
