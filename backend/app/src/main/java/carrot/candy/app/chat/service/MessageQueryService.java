@@ -26,7 +26,7 @@ public class MessageQueryService {
             String cursor
     ) {
         ChatRoom chatRoom = findChatRoom(id);
-        validateMemberInChatRoom(authMember.getId());
+        validateMemberInChatRoom(authMember.getId(), id);
         return messageRepository.findAllByChatRoomOrderByIdDesc(pageSize, cursor, chatRoom);
     }
 
@@ -35,8 +35,8 @@ public class MessageQueryService {
                 .orElseThrow(() -> new IllegalArgumentException("chatRoom not found"));
     }
 
-    private void validateMemberInChatRoom(Long id) {
-        if (!chatRoomRepository.existsByMemberId(id)) {
+    private void validateMemberInChatRoom(Long id, Long chatRoomId) {
+        if (!chatRoomRepository.existsByMemberIdAndChatRoomId(id, chatRoomId)) {
             throw new BusinessException(MEMBER_NOT_IN_CHAR_ROOM);
         }
     }
