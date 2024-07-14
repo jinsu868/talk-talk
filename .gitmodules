@@ -1,0 +1,3 @@
+[submodule "backend/app/talk-server-yml-manager"]
+	path = backend/app/talk-server-yml-manager
+	url = https://github.com/jinsu868/talk-server-yml-manager.git

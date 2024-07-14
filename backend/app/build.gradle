@@ -42,3 +42,23 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('copyYml', Copy) {
+	from "./talk-server-yml-manager/yml/main"
+	include "*.yml"
+	into "./src/main/resources"
+}
+
+tasks.register('copyTestYml', Copy) {
+	from "./talk-server-yml-manager/yml/test"
+	include "*.yml"
+	into "./src/test/resources"
+}
+
+tasks.named('processResources') {
+	dependsOn 'copyYml'
+}
+
+tasks.named('processTestResources') {
+	dependsOn 'copyTestYml'
+}
